@@ -1,0 +1,221 @@
+<apex:page ><!--<apex:tab label="Medical Plan" name="Medical Plan" id="TabMedicalPlan">
+                    <apex:pageBlock id="pgBlockMedicalPlan" rendered="{!errorOccur}">
+                        <apex:pageMessage severity="Error" summary="Please populate all mandatory Fields before marking the SCN Complete" strength="3" />
+                    </apex:pageBlock>
+
+                    <apex:pageBlock id="pgBlockMedicalPlan1" title="Medical Plans">
+                        <apex:pageBlockButtons location="bottom">
+                            <apex:commandButton value="Add Plan" action="{!addMedicalPan}" disabled="{!HideAddMedPlanButton}" id="addMedicalPlan" />
+                            <apex:commandButton value="Remove Plan" action="{!removeMedicalPan}" disabled="{!HideRemoveMedPlanButton}" id="removeMedicalPlan" />
+                        </apex:pageBlockButtons>
+
+                        <apex:repeat value="{!lstMedicalPlan}" var="MedPlanObj">
+                            <apex:pageBlockSection title="Medical Plan" columns="1" collapsible="true">
+                                <apex:pageBlockSection >
+                                    <apex:pageBlockSectionItem > Plan Type
+                                        <apex:outputPanel >
+                                            <div class="requiredInput">
+                                                <div class="requiredBlock"></div>
+                                                <apex:inputField value="{!MedPlanObj.Medical_type__c}" required="{!required}" />
+                                            </div>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+
+                                    <apex:pageBlockSectionItem > Plan ID 
+                                        <apex:outputPanel >
+                                            <div class="requiredInput">
+                                                <div class="requiredBlock"></div>
+                                                <apex:inputField value="{!MedPlanObj.Medical__c}" required="{!required}" id="PlanId">
+                                                    <apex:actionSupport event="onchange" rerender="planIdOther" status="counterStatus" oncomplete="setHDHP(this.id,'{!$Component.HDHP}')" />
+                                                </apex:InputField>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    <apex:pageBlockSectionItem >
+                                    </apex:pageBlockSectionItem> 
+                                        
+                                    <apex:pageBlockSectionItem > Other
+                                        <apex:outputPanel id="planIdOther">
+                                                <div class="requiredInput">
+                                                    <div class="requiredBlock" ></div>
+                                                    <apex:inputText value="{!showBlankVlaue}" disabled="true" style="background:rgb(242, 241, 241);" rendered="{!if(MedPlanObj.Medical__c == 'Others',false,true)}"/>  
+                                                    <apex:inputField value="{!MedPlanObj.Other_Plan_Id__c }"  rendered="{!if(MedPlanObj.Medical__c == 'Others',true,false)}"/> 
+                                                </div>
+                                            </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                        <apex:pageBlockSectionItem >Custom Medical
+                                            <apex:outputPanel >
+                                                <div class="requiredInput">
+                                                    <div class="requiredBlock"></div>
+                                                    <apex:inputField value="{!MedPlanObj.Custom_Medical__c}">
+                                                    <apex:actionSupport event="onchange" rerender="idCustomMedicalOther" status="counterStatus" />
+                                                    </apex:inputField>
+                                                </div>
+                                            </apex:outputPanel>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                    <apex:pageBlockSectionItem >Dental
+                                        <apex:outputPanel >
+                                            <div class="requiredInput">
+                                                <div class="requiredBlock"></div>
+                                                <apex:inputField value="{!MedPlanObj.Dental__c}">
+                                                <apex:actionSupport event="onchange" rerender="idDentalOther" status="counterStatus" />
+                                                </apex:inputField>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    
+                                    <apex:pageBlockSectionItem >Other
+                                            <apex:outputPanel id="idCustomMedicalOther">
+                                                <div class="requiredInput">
+                                                    <div class="requiredBlock" ></div>
+                                                    <apex:inputText value="{!showBlankVlaue}" disabled="true" style="background:rgb(242, 241, 241);" rendered="{!if(MedPlanObj.Custom_Medical__c == 'Other',false,true)}"/>  
+                                                    <apex:inputField value="{!MedPlanObj.CustomMedical_Other__c }"  rendered="{!if(MedPlanObj.Custom_Medical__c == 'Other',true,false)}"/> 
+                                                </div>
+                                            </apex:outputPanel>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                        <apex:pageBlockSectionItem >Other
+                                            <apex:outputPanel id="idDentalOther">
+                                                <div class="requiredInput">
+                                                    <div class="requiredBlock"></div>
+                                                    <apex:inputText value="{!showBlankVlaue}"  disabled="true" style="background:rgb(242, 241, 241);" rendered="{!if(MedPlanObj.Dental__c == 'Other',false,true)}"/>
+                                                    <apex:inputField value="{!MedPlanObj.Dental_Other__c }" rendered="{!if(MedPlanObj.Dental__c == 'Other',true,false)}"/>
+                                                </div>
+                                            </apex:outputPanel>
+                                        </apex:pageBlockSectionItem>
+                                    <apex:pageBlockSectionItem >Vision
+                                        <apex:outputPanel >
+                                            <div class="requiredInput">
+                                                <div class="requiredBlock"></div>
+                                                
+                                                <apex:inputField value="{!MedPlanObj.Vision__C }" >
+                                                <apex:actionSupport event="onchange" rerender="idVisionOther" status="counterStatus" />
+                                                </apex:inputField>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    <apex:pageBlockSectionItem >Chiropractic
+                                        <apex:outputPanel >
+                                            <div class="requiredInput">
+                                                <div class="requiredBlock"></div>
+                                                <apex:inputField value="{!MedPlanObj.Chiropractic__C }" >
+                                                <apex:actionSupport event="onchange" rerender="idChiropratica" status="counterStatus" />
+                                                </apex:inputField>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    <apex:pageBlockSectionItem >Other
+                                            <apex:outputPanel id="idVisionOther">
+                                                <div class="requiredInput">
+                                                    <div class="requiredBlock"></div>
+                                                    <apex:inputText value="{!showBlankVlaue}"  disabled="true" style="background:rgb(242, 241, 241);" rendered="{!if(MedPlanObj.Vision__c == 'Other',false,true)}"/>
+                                                    <apex:inputField value="{!MedPlanObj.Vision_Other__c }" rendered="{!if(MedPlanObj.Vision__c == 'Other',true,false)}"/>
+                                                </div>
+                                            </apex:outputPanel>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                        <apex:pageBlockSectionItem >Other
+                                            <apex:outputPanel id="idChiropratica">
+                                                <div class="requiredInput">
+                                                    <div class="requiredBlock"></div>
+                                                    <apex:inputText value="{!showBlankVlaue }"  disabled="true" style="background:rgb(242, 241, 241);" rendered="{!if(MedPlanObj.Chiropractic__c == 'Other',false,true)}"/> 
+                                                    <apex:inputField value="{!MedPlanObj.Chiropractic_other__C }" rendered="{!if(MedPlanObj.Chiropractic__c == 'Other',true,false)}"/>
+                                                    
+                                                </div>
+                                            </apex:outputPanel>
+                                        </apex:pageBlockSectionItem>
+                                    <apex:pageBlockSectionItem >Acupuncture
+                                        <apex:outputPanel >
+                                            <div class="requiredInput">
+                                                <div class="requiredBlock"></div>
+                                                <apex:inputField value="{!MedPlanObj.Acupuncture__C }">
+                                                <apex:actionSupport event="onchange" rerender="idAcupunctureOther" status="counterStatus" />
+                                                </apex:inputField>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    <apex:pageBlockSectionItem >Acupuncture/Chiropractic
+                                        <apex:outputPanel >
+                                            <div class="requiredInput">
+                                                <div class="requiredBlock"></div>
+                                                <apex:inputField value="{!MedPlanObj.Acupuncture_Chiropractic__c}">
+                                                <apex:actionSupport event="onchange" rerender="idAcupuncturechiropracticOther" status="counterStatus" />
+                                                </apex:inputField>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    
+                                    <apex:pageBlockSectionItem >Other
+                                            <apex:outputPanel id="idAcupunctureOther">
+                                                <div class="requiredInput">
+                                                    <div class="requiredBlock"></div>
+                                                   <apex:inputText value="{!showBlankVlaue }"  disabled="true" style="background:rgb(242, 241, 241);" rendered="{!if(MedPlanObj.Acupuncture__c == 'Other',false,true)}"/>
+                                                   <apex:inputField value="{!MedPlanObj.Acupuncture_other__C }" rendered="{!if(MedPlanObj.Acupuncture__c == 'Other',true,false)}"/>                                        </div>
+                                            </apex:outputPanel>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                        <apex:pageBlockSectionItem >Other
+                                            <apex:outputPanel id="idAcupuncturechiropracticOther">
+                                                <div class="requiredInput">
+                                                    <div class="requiredBlock"></div>
+                                                    <apex:inputText value="{!showBlankVlaue }"  disabled="true" style="background:rgb(242, 241, 241);" rendered="{!if(MedPlanObj.Acupuncture_Chiropractic__c == 'Others',false,true)}"/> 
+                                                    <apex:inputField value="{!MedPlanObj.AcupunctureChiropractic_Other__c}"  rendered="{!if(MedPlanObj.Acupuncture_Chiropractic__c == 'Others',true,false)}"/>
+                                                </div>
+                                            </apex:outputPanel>
+                                        </apex:pageBlockSectionItem>
+                                    <apex:pageBlockSectionItem >Prosthetic/Orthotic
+                                        <apex:outputPanel >
+                                            <div class="requiredInput">
+                                                <div class="requiredBlock"></div>
+                                                <apex:inputField value="{!MedPlanObj.Prosthetic_Orthotic__c}"
+                                                    required="{!required}"/>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+                                    <apex:pageBlockSectionItem >Infertility
+                                        <apex:outputPanel styleClass="requiredInput"
+                                            layout="block">
+                                            <apex:outputPanel styleClass="requiredBlock" layout="block" />
+
+                                            <apex:inputField value="{!MedPlanObj.Infertility__c}"
+                                                required="{!required}"/>
+                                        </apex:outputPanel>
+                                    </apex:pageBlockSectionItem>
+
+                                    <apex:selectRadio value="{!MedPlanObj.HDHP__c}" label="HDHP" id="HDHP">
+                                        <apex:selectOption itemLabel="Yes" itemValue="True" />
+                                        <apex:selectOption itemLabel="No" itemValue="False" />
+                                    </apex:selectRadio>
+                                    <apex:outputPanel ></apex:outputpanel>
+
+                                    <apex:inputField value="{!MedPlanObj.Plan_Name_Active__c}" required="{!required}"   />
+                                    <apex:inputField value="{!MedPlanObj.Plan_Name_Early_Retiree__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.EE__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.EE_Early_Retiree__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.EE_1__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.EE_1_Early_Retiree__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.EE_2__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.EE_2_Early_Retiree__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.Plan_Name_Active_1__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.Plan_Name_Early_Retiree_1__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.EE1__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.EE_Early_Retiree1__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.ES__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.ES_Early_Retiree__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.EC__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.EC_Early_Retiree__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.EF__c}" required="{!required}" />
+                                    <apex:inputField value="{!MedPlanObj.EF_Early_Retiree__c}" required="{!required}" />
+
+                                </apex:pageBlockSection>
+                                <apex:pageBlockSection columns="1" collapsible="true">
+                                    <apex:inputField value="{!MedPlanObj.Medical_Plan_Notes__c}" required="{!required}" />
+                                </apex:pageBlockSection>
+                            </apex:pageBlockSection>
+
+                        </apex:repeat>
+                    </apex:pageBlock>
+                </apex:tab> -->
+                ahjahajh
+</apex:page>

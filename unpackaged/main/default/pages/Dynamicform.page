@@ -1,0 +1,43 @@
+<apex:page controller="dynamicForm" standardStylesheets="true">
+<style>
+</style>
+   
+    <apex:form id="theform"   styleClass="white-pink">
+        <apex:pageBlock title="Dynamic Form">
+
+  <apex:pageBlockSection columns="1" title="Sample table" collapsible="false" showHeader="true">     
+  <apex:repeat value="{!childList}" var="child" id="theRepeat">
+
+
+<apex:inputCheckbox value="{!child.isRequired}" label="{!child.Label}" rendered="{!IF(child.SubType ='Check box',true,false)}"/>
+  
+<apex:inputText value="{!child.SubType}" label="{!child.Label}" rendered="{!IF(child.SubType ='Email',true,false)}"/>
+
+<apex:outputpanel rendered="{!IF(child.Type ='Section header',true,false)}">
+    <span style="float:left;margin-left:12%">
+        <apex:outputText value="{!child.sectionHeaderValue}" label="{!child.sectionHeaderValue}" />
+    </span>
+</apex:outputpanel>
+
+<apex:selectRadio value="{!child.SubType}" label="{!child.Label}" rendered="{!IF(child.SubType ='Radio button',true,false)}"/>
+
+<apex:selectList value="{!child.SubType}" multiselect="false" size="1" rendered="{!IF(child.SubType ='Drop down',true,false)}" label="{!child.Label}"> 
+            <apex:selectOptions value="{!child.dropDownValues}"/>
+        </apex:selectList>
+
+        
+    </apex:repeat>
+    <apex:pageBlockSectionItem >
+    
+                <apex:commandButton action="{!save}" value="submit" id="theButton" style="float:left;margin-left:12%"/>
+
+    </apex:pageBlockSectionItem>
+  
+        </apex:pageBlockSection>
+
+ 
+
+    </apex:pageBlock> 
+    </apex:form>
+    
+</apex:page>

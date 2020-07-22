@@ -1,0 +1,43 @@
+<apex:page controller="ChildForm" id="thePage">
+<apex:form id="form">
+
+    <apex:dataTable value="{!childForm}" var="child" id="theTable" rowClasses="odd,even"    rows="3"  border="2"  styleClass="tableClass">
+        <apex:facet name="caption">Dynamic table  </apex:facet>
+        <apex:facet name="header">table header</apex:facet>
+        <apex:column >
+             <apex:facet name="header">Label</apex:facet>
+            <apex:inputField value="{!child.Label__c}"/>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Component type</apex:facet>
+            <apex:inputField value="{!child.Type__c}"/>
+
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Component  Sub type</apex:facet>
+            <apex:inputField value="{!child.Sub_Type__c}"/>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Values</apex:facet>
+            <apex:inputField value="{!child.Values__c}"/>
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Mapping Object</apex:facet>
+            <apex:selectList value="{!val}" size="1">
+            <apex:selectOptions value="{!name}"/>
+           <!-- <apex:actionSupport event="onchange" action="{!showFields}" rerender="id1"/> -->
+    </apex:SelectList>
+        </apex:column>
+        <!--<apex:column id="id1">
+            <apex:facet name="header">Mapping Object Field</apex:facet>
+            <apex:selectList value="{!fields}" size="1">
+            <apex:selectOptions value="{!fields}"/>  
+            </apex:SelectList>      
+            </apex:column> -->
+        <apex:column >
+            <apex:facet name="header">Is Mandatory</apex:facet>
+            <apex:inputField value="{!child.Is_Required__c}"/>
+        </apex:column>
+    </apex:dataTable>
+</apex:form>
+</apex:page>

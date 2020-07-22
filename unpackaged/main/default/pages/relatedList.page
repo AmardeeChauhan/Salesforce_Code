@@ -1,0 +1,14 @@
+<apex:page standardController="Account" extensions="AccountNotes">
+<apex:form >
+<apex:pageblock id="CustomList" title="Notes & Attatchment"  >
+   <apex:pageBlockTable value="{!attz}" var="o" rendered="{!NOT(ISNULL(attz))}">
+        <apex:column value="{!o.Name}"/>
+        <apex:column value="{!o.CreatedById}"/>
+        <apex:column value="{!o.LastModifiedById}"/>
+       <apex:column value="{!o.LastModifiedDate}"></apex:column>
+       <apex:column value="{!o.CreatedDate }"/>
+   </apex:pageBlockTable>
+   <apex:outputLabel value="No records to display" rendered="{!(ISNULL(attz))}" styleClass="noRowsHeader"></apex:outputLabel>
+ </apex:pageblock>
+</apex:form>
+</apex:page>

@@ -1,0 +1,73 @@
+<apex:page controller="test1">
+<apex:messages />
+    <apex:form id="frm">
+
+    <apex:pageBlock >
+        <apex:variable value="{!0}" var="rowNumber" />
+
+        <!-- A main button to add a new item -->
+        <apex:commandButton value="Add" action="{!addNewObject}" reRender="newItems,panelWithVar" immediate="true" dir="RTL"/>
+
+        <!-- Here we will use an extra variable to define a row number -->
+        <apex:outputPanel id="panelWithVar">
+            <apex:variable value="{!0}" var="rowNumber" />
+        </apex:outputPanel>
+
+        <!-- A list with new items -->
+        <apex:pageBlockTable value="{!objectsToInsert}" var="item" id="newItems" >
+            <!-- A button to remove individual entry. 
+            We must to pass the line number to define a list entry number to remove -->
+
+            <!-- Moreover here we incrementing the row number variable -->
+            <apex:column headerValue="{!$ObjectType.Child_Form__c.fields.Label__c.label}">
+                <apex:inputField value="{!item.Label__c}"/> 
+            </apex:column>
+            <apex:column headerValue="{!$ObjectType.Child_Form__c.fields.Type__c.label}">
+                <apex:inputField value="{!item.Type__c}"/> 
+            </apex:column>
+
+            <apex:column headerValue="{!$ObjectType.Child_Form__c.fields.Sub_Type__c.label}">
+                <apex:inputField value="{!item.Sub_Type__c}"/>
+            </apex:column>
+            <apex:column headerValue="{!$ObjectType.Child_Form__c.fields.Values__c.label}">
+                <apex:inputField value="{!item.Values__c}"/>
+            </apex:column>
+
+
+            <apex:column headerValue="{!$ObjectType.Child_Form__c.fields.Object_Name__c.label}" id="par">
+                <apex:actionRegion >
+                    <apex:selectList value="{!val}" size="1">
+                        <apex:selectOptions value="{!name}"/>
+                        <apex:actionSupport event="onchange" action="{!getAllFields}" rerender="child" immediate="FALSE"/> 
+
+                    </apex:SelectList> 
+                </apex:actionRegion>
+                
+            </apex:column>
+
+            <apex:column id="child" headerValue="{!$ObjectType.Child_Form__c.fields.Field_Name__c.label}">
+                
+                    <apex:selectList value="{!CorrespondingFields}"  size="1" multiselect="false"> 
+                        <apex:selectOptions value="{!fieldNames}" >
+                        </apex:selectOptions>
+                    </apex:selectList>
+
+            </apex:column>
+            <apex:column headerValue="{!$ObjectType.Child_Form__c.fields.Is_Required__c.label}">
+                <apex:inputfield value="{!item.Is_Required__c}"/>
+            </apex:column>
+
+            <apex:column width="5%">
+                <apex:commandButton action="{!removeNewObject}" value=" Delete " reRender="newItems,panelWithVar">
+                    <apex:param name="p1" value="{!rowNumber}" assignTo="{!numberOfRowToRemove}"/>
+                </apex:commandButton>
+            </apex:column>
+            <apex:variable var="rowNumber" value="{!rowNumber + 1}" />
+        </apex:pageBlockTable>
+        
+        <apex:commandButton action="{!submit}" value="Submit" reRender="frm"/>
+ 
+    </apex:pageBlock>
+
+    </apex:form>
+</apex:page>

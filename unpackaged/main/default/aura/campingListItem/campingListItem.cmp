@@ -1,0 +1,11 @@
+<aura:component >
+
+   
+        <lightning:button label="Packed!"
+            onclick="{!c.packItem}" disabled =""/>
+  <aura:attribute name="message" type="String"/>
+
+    <p>Hello! {!v.message}</p>
+
+    
+</aura:component>

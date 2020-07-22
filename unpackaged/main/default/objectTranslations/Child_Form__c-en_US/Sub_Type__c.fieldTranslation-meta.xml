@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+        <label><!-- Sub Type --></label>
+        <name>Sub_Type__c</name>
+        <picklistValues>
+            <masterLabel>Check box</masterLabel>
+            <translation><!-- Check box --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Drop down</masterLabel>
+            <translation><!-- Drop down --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email</masterLabel>
+            <translation><!-- Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>First Name</masterLabel>
+            <translation><!-- First Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Last Name</masterLabel>
+            <translation><!-- Last Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Radio button</masterLabel>
+            <translation><!-- Radio button --></translation>
+        </picklistValues>
+    </CustomFieldTranslation>
